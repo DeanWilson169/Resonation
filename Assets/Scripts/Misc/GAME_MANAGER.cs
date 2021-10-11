@@ -8,7 +8,9 @@ public class GAME_MANAGER : MonoBehaviour
 
     // Start is called before the first frame update
     public static void AddProjectileToContainer(GameObject _projectile){
-        _projectile.transform.parent = ProjectileContainer.transform;
+        if(_projectile.transform.parent != ProjectileContainer.transform){
+            _projectile.transform.parent = ProjectileContainer.transform;
+        }
     }
 
     // Start is called before the first frame update
