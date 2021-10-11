@@ -11,18 +11,34 @@ public enum FIRE_MODE{
 
 public class Weapon : MonoBehaviour
 {
-    [SerializeField] private float damagePerSecond;
-    [SerializeField] private float rateOfFire;
-    [SerializeField] private float bulletVelocity;
-    [SerializeField] private int reloadTime;
-    [SerializeField] private int magazineSize;
-    [SerializeField] private int maxAmmo;
-    [SerializeField] private float accuracy;
-    [SerializeField] private float range;
-    [SerializeField] private FIRE_MODE fireMode;
-    [SerializeField] private GameObject projectileType;
-    [SerializeField] private Transform startPosition;
-    [SerializeField] private List<GameObject> InactiveProjectiles;
+    #region VARIABLE_DECLARATION
+        #region WEAPON_STATS
+        [SerializeField] private float damagePerSecond;
+
+        // Speed of Projectiles
+        [SerializeField] private float rateOfFire;
+        [SerializeField] private float bulletVelocity;
+        // Reloading and Ammo
+        [SerializeField] private int reloadTime;
+        [SerializeField] private int ammoLeftInMagazine;
+        [SerializeField] private int magazineSize;
+        [SerializeField] private int maxAmmo;
+        // Distance and Accuracy
+        [SerializeField] private float accuracy;
+        [SerializeField] private float range;
+        // Weapon 
+        [SerializeField] private FIRE_MODE fireMode;
+
+        #endregion WEAPON_STATS
+        #region MISC_VARIABLES
+        // Misc
+        [SerializeField] private GameObject projectileType;
+        [SerializeField] private Transform startPosition;
+        [SerializeField] private List<GameObject> InactiveProjectiles;
+
+        #endregion MISC_VARIABLES
+    #endregion VARIABLE_DECLARATION
+    
     public void Start(){
         
     }
@@ -35,7 +51,12 @@ public class Weapon : MonoBehaviour
             ResetProjectile();
         }
     }
-
+    public float ReloadWeapon(){
+        ammoLeftInMagazine = magazineSize;
+    }
+    private float calculateReloadDelay(){
+        return 6000 / reloadTime;
+    }
     public float calculateRefireDelay(){
         return 60000 / rateOfFire;
     }
