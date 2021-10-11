@@ -36,13 +36,14 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Weapons\Projectile.cs" />
      <Compile Include="Assets\Scripts\Player\CameraFollow.cs" />
+     <Compile Include="Assets\Scripts\Player\PlayerWeapons.cs" />
      <Compile Include="Assets\Scripts\Weapons\Weapon.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerRotation.cs" />
      <Compile Include="Assets\Scripts\Weapons\WeaponsLocker.cs" />
-     <Compile Include="Assets\Scripts\Weapons\Projectile.cs" />
-     <Compile Include="Assets\Scripts\Player\PlayerWeapons.cs" />
+     <Compile Include="Assets\Scripts\Misc\GAME_MANAGER.cs" />
     <Reference Include="UnityEngine">
         <HintPath>A:/Unity/Unity Editor/2020.3.2f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>

@@ -241,8 +241,8 @@ MonoBehaviour:
   accuracy: 0
   range: 0
   fireMode: 0
-  projectile: {fileID: 3925728172124613844, guid: 33f174c005f49f241ab6c4564b56c541, type: 3}
-  muzzle: {fileID: 466728433}
+  projectileType: {fileID: 0}
+  startPosition: {fileID: 466728434}
 --- !u!1 &466728433
 GameObject:
   m_ObjectHideFlags: 0
@@ -625,12 +625,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1268376868}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5903fc18cff78664f90b3afabc1cdeee, type: 3}
+  m_Script: {fileID: 11500000, guid: 79a4bfb9b03871c4e8ac54c2c586f42b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   currentWeapon: {fileID: 264657694}
-  Weapons:
-  - {fileID: 264657694}
+  Weapons: []
 --- !u!1 &2114597578
 GameObject:
   m_ObjectHideFlags: 0

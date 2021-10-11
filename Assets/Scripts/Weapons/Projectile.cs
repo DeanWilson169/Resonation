@@ -4,29 +4,40 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-
-    [SerializeField] private float projectileSpeed;
-    private Vector3 startPosition;
+    private float range;
+    private float bulletVelocity;    
+    private Vector3 lastPosition;
     private Weapon currentWeapon;
+
+    private float distanceTraveled;
 
     // Start is called before the first frame update
     void Start()
     {
-        startPosition = transform.position;
+        lastPosition = transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(Vector3.forward * projectileSpeed * Time.deltaTime);
-        ExpireProjectile();
+        FireProjectile();
     }
 
-    private void ExpireProjectile(){
-        float distanceTraveled = Mathf.Abs(transform.position.x + transform.position.z);
-        Debug.Log(distanceTraveled);
-        // if(distanceTraveled >= range){
-            
-        // }
+    private void FireProjectile(){
+        transform.Translate(Vector3.forward * bulletVelocity * Time.deltaTime);
+        distanceTraveled += Vector3.Distance(transform.position, lastPosition);
+        lastPosition = transform.position;
+        ExpireProjectile(distanceTraveled, range);
+    }
+
+    private void ExpireProjectile(float _distanceTraveled, float _range){
+        if(_distanceTraveled >= _range){
+            gameObject.SetActive(false);
+        }
+    }
+
+    public void AssignValues(float _bulletVelocity, float _range){
+        bulletVelocity = _bulletVelocity;
+        range = _range;
     }
 }

@@ -20,18 +20,31 @@ public class Weapon : MonoBehaviour
     [SerializeField] private float accuracy;
     [SerializeField] private float range;
     [SerializeField] private FIRE_MODE fireMode;
-    [SerializeField] private GameObject projectile;
-    [SerializeField] private GameObject muzzle;
-    public float Range{
-        get {
-            return range;
-        }
+    [SerializeField] private GameObject projectileType;
+    [SerializeField] private Transform startPosition;
+
+    public List<GameObject> ActiveProjectiles; 
+    public List<Projectile> InactiveProjectiles; 
+
+    public void Start(){
+
     }
-    private List<GameObject> projectiles;
 
     public void FireWeapon(){
-        GameObject _projectile = Instantiate(projectile, muzzle.transform.position, muzzle.transform.rotation);
-        projectiles.Add(_projectile);
+        GameObject _projectile = CreateProjectile(startPosition, projectileType);
+        ActiveProjectiles.Add(_projectile);
+        GAME_MANAGER.AddProjectileToContainer(_projectile);
+    }
+
+    private GameObject CreateProjectile(Transform _startPosition, GameObject _projectileType){
+        GameObject _projectileObject = new GameObject("Projectile");
+        Projectile _projectile = _projectileObject.AddComponent<Projectile>() as Projectile;
+        _projectile.AssignValues(bulletVelocity, range);
+        _projectile.transform.position = _startPosition.position;
+        _projectile.transform.rotation = _startPosition.rotation;
+        GameObject _projectileTypeInstance = Instantiate(_projectileType, _projectile.transform.position, _projectile.transform.rotation);
+        _projectileTypeInstance.transform.parent = _projectileObject.transform;
+        return _projectileObject;
     }
 
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerWeapons : MonoBehaviour
 {
-    private Weapon currentWeapon;
+    [SerializeField] private Weapon currentWeapon;
     [SerializeField] private List<Weapon> Weapons;
 
     // Start is called before the first frame update
