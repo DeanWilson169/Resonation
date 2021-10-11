@@ -7,6 +7,7 @@ public class PlayerWeapons : MonoBehaviour
     [SerializeField] private Weapon currentWeapon;
     [SerializeField] private List<Weapon> Weapons;
 
+    private bool canFire = true;
     private float timeSinceLastShot = 0f;
 
     private float refireDelay;
@@ -21,12 +22,16 @@ public class PlayerWeapons : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButton(0)){
-            if(timeSinceLastShot >= refireDelay){
-                currentWeapon.FireWeapon();
-                timeSinceLastShot = 0;
-            }
+        if(timeSinceLastShot >= refireDelay){
+            canFire = true;
         }
+
+        if(Input.GetMouseButton(0) && canFire){
+            currentWeapon.FireWeapon();
+            timeSinceLastShot = 0;
+            canFire = false;
+        }
+
         timeSinceLastShot++;
     }
 }

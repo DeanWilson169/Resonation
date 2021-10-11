@@ -44,17 +44,13 @@ public class Weapon : MonoBehaviour
         Projectile _projectile = _projectileObject.AddComponent<Projectile>() as Projectile;
         _projectile.AssignValues(bulletVelocity, range, gameObject);
         GAME_MANAGER.AddProjectileToContainer(_projectileObject);
-        AddToInactiveProjectileList(_projectileObject);
-        Debug.Log(_projectileObject);
     }
 
     private void ResetProjectile(){
-        Debug.Log("Reset");
         GameObject _projectile = InactiveProjectiles[0];
         _projectile.GetComponent<Projectile>().Initialize(gameObject, startPosition);
         _projectile.SetActive(true);
         RemoveFromInactiveProjectileList(_projectile);
-
     }
     public void AddToInactiveProjectileList(GameObject _projectile){
         InactiveProjectiles.Add(_projectile);
