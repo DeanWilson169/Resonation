@@ -10,12 +10,12 @@ public class Projectile : MonoBehaviour
     private float distanceTraveled;
     private Weapon weapon;
 
-    public void Initialize(GameObject weapon, Transform startPosition, Quaternion accuracyOffset){
+    public void Initialize(GameObject _weapon, Transform _startPosition, Quaternion _accuracyOffset){
         distanceTraveled = 0;
-        transform.position = startPosition.position;
-        transform.rotation = startPosition.rotation * accuracyOffset;
+        transform.position = _startPosition.position;
+        transform.rotation = _startPosition.rotation * _accuracyOffset;
         lastPosition = transform.position;
-        AssignValues(bulletVelocity, range, weapon);
+        AssignValues(bulletVelocity, range, _weapon);
     }
 
     // Start is called before the first frame update
@@ -48,5 +48,18 @@ public class Projectile : MonoBehaviour
         bulletVelocity = _bulletVelocity;
         range = _range;
         weapon = _weapon.GetComponent<Weapon>();
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        // if(collision.layer == "Weapon"){
+        //     Physics.IgnoreCollision(collision.collider, GetComponent<Collider>());
+        // }
+        switch(collision.collider.tag){
+            case "Enemy": {
+                collision.collider.GetComponent<Health>().Damage(weapon.Damage);
+            }
+            break;
+        }
     }
 }

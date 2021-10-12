@@ -140,14 +140,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponName: Pistol
-  damagePerSecond: 0
+  damagePerSecond: 10
   rateOfFire: 100
   bulletVelocity: 100
   reloadTime: 1.5
   ammoLeftInMagazine: 9
   magazineSize: 9
-  maxAmmo: 2147483647
-  currentAmmo: 2147483647
+  maxAmmo: 9999
+  currentAmmo: 9999
   hasUnlimitedAmmo: 1
   accuracy: 9
   range: 5

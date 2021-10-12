@@ -6,7 +6,6 @@ public enum FIRE_MODE{
         SEMI_AUTO = 0,
         BURST_FIRE = 1,
         FULL_AUTO = 2
-
 };
 
 public class Weapon : MonoBehaviour
@@ -15,6 +14,11 @@ public class Weapon : MonoBehaviour
         #region WEAPON_STATS
         [SerializeField] private string weaponName;
         [SerializeField] private float damagePerSecond;
+        public float Damage{
+            get{
+                return damagePerSecond;
+            }
+        }
 
         // Speed of Projectiles
         [SerializeField] private float rateOfFire;
@@ -59,6 +63,10 @@ public class Weapon : MonoBehaviour
 
         #endregion MISC_VARIABLES
     #endregion VARIABLE_DECLARATION
+    
+    
+    
+    
     public void FireWeapon(){
         if(InactiveProjectiles.Count == 0)
             CreateProjectile(startPosition, projectileType);
