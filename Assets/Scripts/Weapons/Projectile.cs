@@ -9,10 +9,12 @@ public class Projectile : MonoBehaviour
     private Vector3 lastPosition;
     private float distanceTraveled;
     private Weapon weapon;
-    public void Initialize(GameObject weapon, Transform startPosition){
+
+
+    public void Initialize(GameObject weapon, Transform startPosition, Quaternion accuracyOffset){
         distanceTraveled = 0;
         transform.position = startPosition.position;
-        transform.rotation = startPosition.rotation;
+        transform.rotation = startPosition.rotation * accuracyOffset;
         lastPosition = transform.position;
         AssignValues(bulletVelocity, range, weapon);
     }

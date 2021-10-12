@@ -20,6 +20,11 @@ public class Weapon : MonoBehaviour
         [SerializeField] private float bulletVelocity;
         // Reloading and Ammo
         [SerializeField] private float reloadTime;
+        public float ReloadTime{
+            get{
+                return reloadTime;
+            }
+        }
         [SerializeField] private int ammoLeftInMagazine;
 
         public int AmmoLeftInMagazine{
@@ -29,8 +34,15 @@ public class Weapon : MonoBehaviour
         }
         [SerializeField] private int magazineSize;
         [SerializeField] private int maxAmmo;
+        [SerializeField] private int currentAmmo;
+        // public int CurrentAmmo {
+        //     get{
+        //         return currentAmmo;
+        //     }
+        // }
+
         // Distance and Accuracy
-        [SerializeField] private float accuracy;
+        [SerializeField, Range(0, 50)][Tooltip("Higher is more inaccurate")] private float accuracy; // Lower number = more accurate
         [SerializeField] private float range;
         // Weapon 
         [SerializeField] private FIRE_MODE fireMode;
@@ -58,30 +70,35 @@ public class Weapon : MonoBehaviour
         }
     }
     public void ReloadWeapon(){
-        ammoLeftInMagazine = magazineSize;
+        if(currentAmmo >= magazineSize)
+            ammoLeftInMagazine = magazineSize;
+        else if(currentAmmo < magazineSize)
+            ammoLeftInMagazine = currentAmmo;
     }
 
-    public float calculateReloadDelay(){
-        return reloadTime; // 6000 / 
-    }
     public float calculateRefireDelay(){
         return 60 / rateOfFire;
     }
     private void CreateProjectile(Transform _startPosition, GameObject _projectileType){
-        GameObject _projectileObject = Instantiate(_projectileType, _startPosition.position, _startPosition.rotation);
+        GameObject _projectileObject = Instantiate(_projectileType, _startPosition.position, _startPosition.rotation * Quaternion.Euler(new Vector3(0, Random.Range(-(Random.value * accuracy), Random.value * accuracy), 0)));
+        Debug.Log(Random.value * accuracy);
         Projectile _projectile = _projectileObject.AddComponent<Projectile>() as Projectile;
         _projectile.AssignValues(bulletVelocity, range, gameObject);
         GAME_MANAGER.AddProjectileToContainer(_projectileObject);
         ammoLeftInMagazine--;
+        currentAmmo--;
     }
 
     private void ResetProjectile(){
         GameObject _projectile = InactiveProjectiles[0];
-        _projectile.GetComponent<Projectile>().Initialize(gameObject, startPosition);
+        Quaternion accuracyOffset = Quaternion.Euler(new Vector3(0, Random.Range(-(Random.value * accuracy), Random.value * accuracy), 0));
+        _projectile.GetComponent<Projectile>().Initialize(gameObject, startPosition, accuracyOffset);
         _projectile.SetActive(true);
         RemoveFromInactiveProjectileList(_projectile);
         ammoLeftInMagazine--;
+        currentAmmo--;
     }
+
     public void AddToInactiveProjectileList(GameObject _projectile){
         InactiveProjectiles.Add(_projectile);
     }

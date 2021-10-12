@@ -8,17 +8,13 @@ public class PlayerWeapons : MonoBehaviour
     [SerializeField] private List<Weapon> Weapons;
 
     private bool canFire = true;
-    private float timeSinceLastShot = 0f;
-    private float timeSinceBeginReload = 0f;
     private float refireDelay;
-    private float reloadDelay;
 
 
     // Start is called before the first frame update
     void Start()
     {
         refireDelay = currentWeapon.calculateRefireDelay();
-        reloadDelay = currentWeapon.calculateReloadDelay();
     }
 
     // Update is called once per frame
@@ -33,12 +29,11 @@ public class PlayerWeapons : MonoBehaviour
         if(currentWeapon.AmmoLeftInMagazine != 0){
             currentWeapon.FireWeapon();
             canFire = false;
-            Debug.Log(refireDelay);
             yield return new WaitForSeconds(refireDelay);
         }
         else{
             canFire = false;
-            yield return new WaitForSeconds(reloadDelay);
+            yield return new WaitForSeconds(currentWeapon.ReloadTime);
             ReloadWeapon();
         }
         canFire = true;
