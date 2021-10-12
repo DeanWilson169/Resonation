@@ -233,9 +233,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damagePerSecond: 0
-  rateOfFire: 60
+  rateOfFire: 1000
   bulletVelocity: 100
-  reloadTime: 0
+  reloadTime: 5000
+  ammoLeftInMagazine: 0
   magazineSize: 0
   maxAmmo: 0
   accuracy: 0
@@ -726,7 +727,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: addad9490d92f7e4d840fde9cdea14b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

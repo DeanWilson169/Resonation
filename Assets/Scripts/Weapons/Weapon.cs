@@ -19,8 +19,14 @@ public class Weapon : MonoBehaviour
         [SerializeField] private float rateOfFire;
         [SerializeField] private float bulletVelocity;
         // Reloading and Ammo
-        [SerializeField] private int reloadTime;
+        [SerializeField] private float reloadTime;
         [SerializeField] private int ammoLeftInMagazine;
+
+        public int AmmoLeftInMagazine{
+            get{
+                return ammoLeftInMagazine;
+            }
+        }
         [SerializeField] private int magazineSize;
         [SerializeField] private int maxAmmo;
         // Distance and Accuracy
@@ -51,20 +57,22 @@ public class Weapon : MonoBehaviour
             ResetProjectile();
         }
     }
-    public float ReloadWeapon(){
+    public void ReloadWeapon(){
         ammoLeftInMagazine = magazineSize;
     }
-    private float calculateReloadDelay(){
-        return 6000 / reloadTime;
+
+    public float calculateReloadDelay(){
+        return reloadTime; // 6000 / 
     }
     public float calculateRefireDelay(){
-        return 60000 / rateOfFire;
+        return 60 / rateOfFire;
     }
     private void CreateProjectile(Transform _startPosition, GameObject _projectileType){
         GameObject _projectileObject = Instantiate(_projectileType, _startPosition.position, _startPosition.rotation);
         Projectile _projectile = _projectileObject.AddComponent<Projectile>() as Projectile;
         _projectile.AssignValues(bulletVelocity, range, gameObject);
         GAME_MANAGER.AddProjectileToContainer(_projectileObject);
+        ammoLeftInMagazine--;
     }
 
     private void ResetProjectile(){
@@ -72,6 +80,7 @@ public class Weapon : MonoBehaviour
         _projectile.GetComponent<Projectile>().Initialize(gameObject, startPosition);
         _projectile.SetActive(true);
         RemoveFromInactiveProjectileList(_projectile);
+        ammoLeftInMagazine--;
     }
     public void AddToInactiveProjectileList(GameObject _projectile){
         InactiveProjectiles.Add(_projectile);
