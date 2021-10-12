@@ -10,7 +10,6 @@ public class Projectile : MonoBehaviour
     private float distanceTraveled;
     private Weapon weapon;
 
-
     public void Initialize(GameObject weapon, Transform startPosition, Quaternion accuracyOffset){
         distanceTraveled = 0;
         transform.position = startPosition.position;

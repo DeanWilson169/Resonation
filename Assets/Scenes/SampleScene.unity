@@ -232,16 +232,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb69d9a4754601740adb8bdbd8b29018, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponName: Pistol
   damagePerSecond: 0
-  rateOfFire: 1000
+  rateOfFire: 100
   bulletVelocity: 100
-  reloadTime: 5000
-  ammoLeftInMagazine: 0
-  magazineSize: 0
-  maxAmmo: 0
-  accuracy: 0
+  reloadTime: 1.5
+  ammoLeftInMagazine: 9
+  magazineSize: 9
+  maxAmmo: 9999
+  currentAmmo: 100
+  accuracy: 9
   range: 5
-  fireMode: 0
+  fireMode: 1
   projectileType: {fileID: 3925728172124613844, guid: 33f174c005f49f241ab6c4564b56c541, type: 3}
   startPosition: {fileID: 466728434}
   InactiveProjectiles: []
@@ -631,7 +633,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentWeapon: {fileID: 264657694}
-  Weapons: []
+  secondaryWeapon: {fileID: 0}
 --- !u!1 &1456689859
 GameObject:
   m_ObjectHideFlags: 0

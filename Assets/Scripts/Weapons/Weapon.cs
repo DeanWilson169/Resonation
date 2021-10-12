@@ -13,6 +13,7 @@ public class Weapon : MonoBehaviour
 {
     #region VARIABLE_DECLARATION
         #region WEAPON_STATS
+        [SerializeField] private string weaponName;
         [SerializeField] private float damagePerSecond;
 
         // Speed of Projectiles
@@ -35,17 +36,19 @@ public class Weapon : MonoBehaviour
         [SerializeField] private int magazineSize;
         [SerializeField] private int maxAmmo;
         [SerializeField] private int currentAmmo;
-        // public int CurrentAmmo {
-        //     get{
-        //         return currentAmmo;
-        //     }
-        // }
+        [SerializeField] private bool hasUnlimitedAmmo;
 
         // Distance and Accuracy
         [SerializeField, Range(0, 50)][Tooltip("Higher is more inaccurate")] private float accuracy; // Lower number = more accurate
         [SerializeField] private float range;
         // Weapon 
         [SerializeField] private FIRE_MODE fireMode;
+
+        public FIRE_MODE FireMode {
+            get{
+                return fireMode;
+            }
+        }
 
         #endregion WEAPON_STATS
         #region MISC_VARIABLES
@@ -56,24 +59,21 @@ public class Weapon : MonoBehaviour
 
         #endregion MISC_VARIABLES
     #endregion VARIABLE_DECLARATION
-    
-    public void Start(){
-        
-    }
-
     public void FireWeapon(){
-        if(InactiveProjectiles.Count == 0){ 
+        if(InactiveProjectiles.Count == 0)
             CreateProjectile(startPosition, projectileType);
-        }
-        else{
+        else
             ResetProjectile();
-        }
     }
     public void ReloadWeapon(){
         if(currentAmmo >= magazineSize)
             ammoLeftInMagazine = magazineSize;
         else if(currentAmmo < magazineSize)
             ammoLeftInMagazine = currentAmmo;
+        if(hasUnlimitedAmmo){
+            ammoLeftInMagazine = magazineSize;
+            currentAmmo = maxAmmo;
+        }
     }
 
     public float calculateRefireDelay(){
@@ -81,7 +81,6 @@ public class Weapon : MonoBehaviour
     }
     private void CreateProjectile(Transform _startPosition, GameObject _projectileType){
         GameObject _projectileObject = Instantiate(_projectileType, _startPosition.position, _startPosition.rotation * Quaternion.Euler(new Vector3(0, Random.Range(-(Random.value * accuracy), Random.value * accuracy), 0)));
-        Debug.Log(Random.value * accuracy);
         Projectile _projectile = _projectileObject.AddComponent<Projectile>() as Projectile;
         _projectile.AssignValues(bulletVelocity, range, gameObject);
         GAME_MANAGER.AddProjectileToContainer(_projectileObject);
